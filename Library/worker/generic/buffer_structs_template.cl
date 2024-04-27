@@ -10,7 +10,6 @@
     Originally adapted from Bjorn Kerler's sha256.cl
     MIT License
 */
-#define DEBUG 1
 
 // All macros left defined for usage in the program
 #define ceilDiv(n,d) (((n) + (d) - 1) / (d))
