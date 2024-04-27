@@ -5,7 +5,6 @@
 import sys
 import hashlib
 import hmac
-import scrypt
 import functools, operator
 from Library import opencl
 from Library.opencl_information import opencl_information
@@ -321,32 +320,9 @@ def main(argv):
 
     for salt in salts:
         print("Using salt: %s" % salt)
-        md5_test(opencl_algos, passwordlist)
-        md5_hmac_test(opencl_algos, passwordlist, salt)
-        pbkdf2_hmac_md5_test(opencl_algos, passwordlist, salt, 1000, 32)
-        pbkdf2_hmac_md5_test(opencl_algos, passwordlist, salt, 1000, 50)
-        hash_iterations_md5_test(opencl_algos, passwordlist, 10000)
         
-        sha1_test(opencl_algos, passwordlist)
-        sha1_hmac_test(opencl_algos, passwordlist, salt)
-        pbkdf2_hmac_sha1_test(opencl_algos, passwordlist, 16*b"\x00", 1000, 32)
-        pbkdf2_hmac_sha1_test(opencl_algos, passwordlist, salt, 1000, 32)
-        pbkdf2_hmac_sha1_test(opencl_algos, passwordlist, salt, 1000, 64)
-        hash_iterations_sha1_test(opencl_algos, passwordlist, 10000)
-
-        sha256_test(opencl_algos, passwordlist)
-        sha256_hmac_test(opencl_algos, passwordlist, salt)
-        pbkdf2_hmac_sha256_test(opencl_algos, passwordlist, salt, 10000, 32)
-        pbkdf2_hmac_sha256_test(opencl_algos, passwordlist, salt, 10000, 50)
-        hash_iterations_sha256_test(opencl_algos, passwordlist, 10000)
-
-        sha512_test(opencl_algos, passwordlist)
-        sha512_hmac_test(opencl_algos, passwordlist, salt)
-        pbkdf2_hmac_sha512_test(opencl_algos, passwordlist, salt, 1000, 32)
-        pbkdf2_hmac_sha512_test(opencl_algos, passwordlist, salt, 1000, 50)
-        hash_iterations_sha512_test(opencl_algos, passwordlist, 10000)
-
-        scrypt_test(opencl_algos, passwordlist, 15, 3, 1, 0x20, salt)
+        pbkdf2_hmac_sha512_test(opencl_algos, passwordlist, salt, 100000, 32)
+        pbkdf2_hmac_sha512_test(opencl_algos, passwordlist, salt, 100000, 50)
 
     print("Testing PBKDF2 with SaltList")
     pbkdf2_hmac_saltlist_md5_test(opencl_algos, passwordlist[0], salts, 1000, 50)
